@@ -1,0 +1,77 @@
+#***Plotting and analysis****
+# Population plots # coulour = lines of compare & facet = layers
+library(ggetho)
+ggetho(dt_curated, aes(y=asleep, colour=sex)) +
+  stat_pop_etho() +
+  stat_ld_annotations() +
+  facet_grid(sex ~ .)
+### above function can be used for different plotting
+------------------------------------------------
+# individuals plots (3rd plot), for several ethoscopes, give each fly a unique number )(fly_no)
+# coulour = lines to compare & facet = layers
+library(ggetho)
+ggetho(dt_curated, aes(y=asleep, colour=sex)) +
+  stat_pop_etho() +
+  stat_ld_annotations(height = 0.1) +
+  facet_grid(fly_no ~ .)
+### above function can be used for different plotting
+------------------------------------------------
+# Average for all animals within a 30min (4th plot) # coulour = lines to compare & facet = layers
+ggetho(dt_curated, aes(y=asleep, colour=sex), time_wrap = hours(24)) +
+  stat_pop_etho() +
+  stat_ld_annotations() +
+  facet_grid(Temperature ~ .) +
+  scale_y_continuous(name= "Fraction of time sleeping",labels = scales::percent)
+### above function can be used for different plotting
+-------------------------------------------------------------------------------------------------------
+# plotting sunmmery_dt file, sleep fraction during night time, day time or total sleep 
+ggplot(summary_dt, aes(x=sex, y=sleep_fraction_d, fill=sex)) + 
+  geom_boxplot(outlier.colour = NA) +
+  geom_jitter(alpha=.5) +
+  facet_grid(background ~ .) +
+  scale_y_continuous(name= "Fraction of time sleeping",labels = scales::percent)
+### above function can be used for different plotting
+----------------------------------------------------------------------------------------
+# Plotting three phases_ALL_Light phase _Dark phase
+ggplot(summary_dt_melted, aes(x=food, y=sleep_fraction, fill=phase)) + 
+  geom_boxplot(outlier.colour = NA) +
+  geom_jitter(alpha=.5) +
+  facet_grid(sex ~ .) +
+  scale_y_continuous(name= "Fraction of time sleeping",labels = scales::percent)
+### above function can be used for different plotting
+
+---------------------------------------------------------------------------------------------------------
+# Bout length vs time of the day (8th plot)
+ggetho(bout_dt, aes(y=duration / 60, colour="background"), time_wrap = hours(24)) + 
+  stat_pop_etho() + 
+  facet_grid(sex ~ .) +
+  scale_y_continuous(name= "Bout length (min)")
+
+-------------------------------------------------------------------------------------------------------------
+# relationship between bout length and bout number (9th plot)
+ggplot(rejoin(bout_summary), aes(n_bouts, mean_bout_length, colour=food)) +
+  geom_point() +
+  facet_grid(temperature ~ .) + 
+  scale_x_continuous(name="Number of bouts") +
+  scale_y_continuous(name="Average bout duration (s)")
+### above function can be used for different plotting
+  -----------------------------------------------------------------------------------------------------
+## plotting (10th plot) sleep latency
+ggplot(overall_summary, aes(latency / 60, sleep_fraction_l, colour=sex)) +
+  geom_point() +
+  geom_smooth(method="lm", alpha=.1)+
+  facet_grid(background ~ .)
+--------------------------------------------------------
+
+  
+  
+# Statistics
+## Pairwise Wilcoxon tests
+pairwise.wilcox.test(summary_dt[temperature=="22 oC", sleep_fraction_all], 
+                     summary_dt[temperature=="22 oC", food])
+
+pairwise.wilcox.test(summary_dt[temperature=="25 oC", sleep_fraction_all], 
+                     summary_dt[temperature=="25 oC", food])
+## Two way anova
+model <- aov(sleep_fraction_all ~ food * food, summary_dt)
+summary(model)

@@ -3,8 +3,7 @@ DATA_DIR <- "C://Users/u0118120/Documents/ethoscope"
 list.files(DATA_DIR)
 setwd(DATA_DIR)
 
-#2: From experiment design to metadata,
-#2-1 Loading libraries 
+#2: Loading libraries 
 library(behavr)
 library(scopr)
 library(sleepr)
@@ -18,7 +17,7 @@ metadata <- link_ethoscope_metadata(metadata,
                                     result_dir = "ethoscope_results")
 print(metadata)
 
-#5: Loading raw data without dead or escaped animals [e.g status == "Ok","Dead", Escaped]
+#5: Loading raw data without dead or escaped animals [e.g status == "Ok","Dead", "Escaped"]
 ## this can be used to select animals with specific criteria
 metadata_subset <- metadata[status == "OK"]
 dt <- load_ethoscope(metadata_subset,
@@ -27,11 +26,16 @@ dt <- load_ethoscope(metadata_subset,
 summary(dt)
 print(dt)
 
-#6: setting Zeitgeber (ZT0). here light starts at 06:00 AM
+#6: setting Zeitgeber (ZT0). here light starts at 06:00 AM; ZT0 is the reference hour
+## caching option: when you load data, it stores a snapshot in ethoscope folder; next time you load will be faster because from snapshot
+
+system.time(
 dt <- load_ethoscope(metadata_subset,
                      reference_hour=6.0, 
-                     FUN = sleepr::sleep_annotation, 
+                     FUN = sleepr::sleep_annotation,
+                     cache = "ethoscope_cache",
                      verbose=FALSE)
+)
 
 #7: Loading library 
 library(sleepr)

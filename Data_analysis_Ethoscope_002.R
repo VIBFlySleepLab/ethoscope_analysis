@@ -3,7 +3,7 @@
 library(ggetho)
 ggetho(dt_curated, aes(y=asleep, colour=sex)) +
   stat_pop_etho() +
-  stat_ld_annotations() +
+  stat_ld_annotations(height = 1, alpha=0.3, outline=NA) +
   facet_grid(sex ~ .)
 ### above function can be used for different plotting
 ------------------------------------------------
@@ -12,7 +12,7 @@ ggetho(dt_curated, aes(y=asleep, colour=sex)) +
 library(ggetho)
 ggetho(dt_curated, aes(y=asleep, colour=sex)) +
   stat_pop_etho() +
-  stat_ld_annotations(height = 0.1) +
+  stat_ld_annotations(height = 1, alpha=0.3, outline=NA) +
   facet_grid(fly_no ~ .)
 ### above function can be used for different plotting
 ------------------------------------------------

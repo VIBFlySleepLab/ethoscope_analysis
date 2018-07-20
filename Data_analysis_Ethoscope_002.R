@@ -7,6 +7,14 @@ ggetho(dt_curated, aes(y=asleep, colour=sex)) +
   facet_grid(sex ~ .)
 ### above function can be used for different plotting
 ------------------------------------------------
+# Sleep deprivation: plot tube rotations per 30mins against t
+library(ggetho)
+ggetho(dt_curated, aes(y=interactions, colour=food)) +
+  stat_pop_etho() +
+  stat_ld_annotations(height = 1, alpha=0.3, outline=NA) +
+  facet_grid(region_id ~ .)
+## also first make dt_curated file for the night of sleep deprivation e.g. dt_curated <- dt_curated[t %between% c(hours(60), hours(72))]
+--------------------------------------------------
 # individuals plots (3rd plot), for several ethoscopes, give each fly a unique number )(fly_no)
 # coulour = lines to compare & facet = layers
 library(ggetho)

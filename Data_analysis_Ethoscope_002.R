@@ -1,3 +1,21 @@
+ggetho(dt_curated, aes(y=interactions, colour=background), time_wrap = hours(24), summary_FUN = sum, summary_time_window = mins(30))+
+  stat_pop_etho(mapping = NULL, data = NULL, geom = "smooth", position = "identity", method = mean_se, method.args = list(),
+                show.legend = NA, inherit.aes = TRUE)+
+  stat_ld_annotations(mapping = NULL, data = NULL, position = "identity", ld_colours = c("white", "black"), ypos = "bottom", 
+                      height = 0.03, period = hours(24), phase = 0, l_duration = hours(12), outline = "black", 
+                      x_limits = c(NA, NA), na.rm = FALSE, show.legend = TRUE, inherit.aes = TRUE)
+
+
+ggetho(dt_curated, aes(y=interactions, colour=background), time_wrap = hours(24), summary_FUN = sum, summary_time_window = mins(30))+
+  stat_pop_etho(mapping = NULL, data = NULL, geom = "smooth", position = "identity", method = mean_se, method.args = list(),
+                show.legend = NA, inherit.aes = TRUE)+
+  stat_ld_annotations(mapping = NULL, data = NULL, position = "identity", ld_colours = c("white", "black"), ypos = "bottom", 
+                      height = 0.03, period = hours(24), phase = 0, l_duration = hours(12), outline = "black", 
+                      x_limits = c(NA, NA), na.rm = FALSE, show.legend = TRUE, inherit.aes = TRUE)
+
+
+
+
 #***Plotting and analysis****
 # Population plots # coulour = lines of compare & facet = layers
 library(ggetho)

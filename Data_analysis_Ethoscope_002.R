@@ -33,7 +33,13 @@ ggetho(dt_curated, aes(y=asleep, colour=sex), time_wrap = hours(24)) +
 
 # Create plot for sum of interactions (rotations) for each fly every 30 min
 #colour could be changed to sex, genotype, etc. summary_FUN could be sum, mean, etc, summary_time_window could be any time intervals
+# for individuals
+idx = '2018-07-19_10-42-39_006e27|05'
 
+ggetho(dt_curated[id == idx], aes(y=interactions, colour=id), time_wrap = hours(24), summary_FUN = sum, summary_time_window = mins(30))+
+  stat_pop_etho(mapping = NULL, data = NULL, geom = "smooth", position = "identity", se= TRUE, method = mean_se, method.args = list(),show.legend = NA, inherit.aes = TRUE)+
+  stat_ld_annotations(mapping = NULL, data = NULL, position = "identity", ld_colours = c("white", "black"), ypos = "bottom", height = 0.03, period = hours(24), phase = 0, l_duration = hours(12), outline = "black", x_limits = c(NA, NA), na.rm = FALSE, show.legend = FALSE, inherit.aes = TRUE)
+# for the whole group 
 ggetho(dt_curated, aes(y=interactions, colour=background), time_wrap = hours(24), summary_FUN = sum, summary_time_window = mins(30))+
   stat_pop_etho(mapping = NULL, data = NULL, geom = "smooth", position = "identity", method = mean_se, method.args = list(),
                 show.legend = NA, inherit.aes = TRUE)+

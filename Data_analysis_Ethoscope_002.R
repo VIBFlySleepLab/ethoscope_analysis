@@ -47,6 +47,13 @@ ggetho(dt_curated, aes(y=interactions, colour=background), time_wrap = hours(24)
                       height = 0.03, period = hours(24), phase = 0, l_duration = hours(12), outline = "black", 
                       x_limits = c(NA, NA), na.rm = FALSE, show.legend = TRUE, inherit.aes = TRUE)
 
+# create graph for generating rotations per 30min
+
+ggetho(dt_curated[t %between% c(hours(12), hours(24))],
+           aes(y = interactions, fill=background),
+           summary_fun = sum) +
+      stat_pop_etho(method= mean_cl_boot) +
+      scale_y_continuous(limits = c(NA,50), name=expression(N[stimuli]~(30~min^{-1})))
 
 ### above function can be used for different plotting
 -------------------------------------------------------------------------------------------------------
